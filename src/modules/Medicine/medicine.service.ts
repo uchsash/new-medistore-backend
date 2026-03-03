@@ -1,0 +1,19 @@
+import { Medicine } from "../../../generated/prisma/client";
+import { MedicineWhereInput } from "../../../generated/prisma/models";
+import { prisma } from "../../lib/prisma";
+
+const createMedicineInService = async (data: Omit<Medicine, "id" | "createdAt" | "updatedAt">, userId: string) => {
+    const result = await prisma.medicine.create({
+        data: {
+            ...data,
+            sellerId: userId
+        }
+    });
+
+    return result;
+}
+
+
+export const medicineService = {
+    createMedicineInService,
+}

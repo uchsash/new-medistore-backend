@@ -1,5 +1,7 @@
 import { Router } from "express";
 import { AuthRouter } from "../modules/Auth/auth.router";
+import { medicineRouter } from "../modules/Medicine/medicine.route";
+import { categoryRouter } from "../modules/Category/category.router";
 
 const router = Router();
 
@@ -8,14 +10,14 @@ const routerManager = [
         path: "/auth",
         route: AuthRouter,
     },
-    // {
-    //     path: "/medicines",
-    //     route: medicineRouter,
-    // },
-    // {
-    //     path: "/categories",
-    //     route: categoryRouter,
-    // },
+    {
+        path: "/medicines",
+        route: medicineRouter,
+    },
+    {
+        path: "/categories",
+        route: categoryRouter,
+    },
     // {
     //     path: "/orders",
     //     route: orderRouter,

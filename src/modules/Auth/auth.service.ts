@@ -34,6 +34,11 @@ const loginUserIntoDB = async (payload : any) => {
         throw new Error("User not found!");
     }
 
+    const isPasswordMatched = await bcrypt.compare(payload.password, user.password);
+    if(!isPasswordMatched){
+        throw new Error("Invalid Credentials!")
+    }
+
     const userData = {
         id: user.id,
         name: user.name,
