@@ -15,6 +15,4 @@ router.post(
 
 )
 
-
-
 export const AuthRouter: Router = router;

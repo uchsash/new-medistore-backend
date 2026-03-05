@@ -8,9 +8,14 @@ const router = express.Router();
 
 router.post(
     "/",
-    auth(UserRole.seller), //need to change later
+    auth(UserRole.admin),
     categoryController.createCategory
 );
+
+router.get(
+    "/",
+    categoryController.getAllCategory
+)
 
 
 export const categoryRouter: Router = router;

@@ -11,6 +11,24 @@ const createCategoryInService = async (name: string) => {
     return result;
 }
 
+const getAllCategoryInService = async (sortBy: string, sortOrder: string) => {
+    const result = await prisma.category.findMany({
+        orderBy: {
+            [sortBy]: sortOrder
+        },
+        include: {
+            _count: {
+                select: {
+                    medicines: true
+                }
+            }
+        }
+    });
+
+    return result;
+}
+
 export const categoryService = {
-    createCategoryInService
+    createCategoryInService,
+    getAllCategoryInService
 }

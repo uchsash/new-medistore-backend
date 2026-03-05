@@ -27,7 +27,7 @@ async function seedAdmin() {
         }
 
         console.log("--- Checking Admin Exists or Not ---");
-        
+
         const existingUser = await prisma.user.findUnique({
             where: {
                 email: adminData.email
@@ -50,6 +50,8 @@ async function seedAdmin() {
     }
     catch (err) {
         console.log(err);
+    } finally{
+        await prisma.$disconnect();
     }
 }
 
