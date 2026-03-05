@@ -23,4 +23,17 @@ router.get(
 );
 
 
+router.patch(
+    "/:catId",
+    auth(UserRole.admin),
+    categoryController.updateCategory
+)
+
+router.delete(
+    "/:catId",
+    auth(UserRole.admin),
+    categoryController.deleteCategory
+
+)
+
 export const categoryRouter: Router = router;

@@ -29,7 +29,7 @@ const getAllCategory = async (req: Request, res: Response) => {
 
         const allowedSortFields = ['name', 'createdAt'];
         const finalSortBy = allowedSortFields.includes(sortBy as string) ? sortBy : "name";
-        
+
         const result = await categoryService.getAllCategoryInService(finalSortBy, sortOrder);
 
         sendResponse(res, {
@@ -71,22 +71,73 @@ const getCategoryById = async (req: Request, res: Response) => {
 
     }
     catch (error) {
-
         sendResponse(res, {
             statusCode: 400,
             success: false,
             message: "Categories fetched unsuccessful.",
         });
     }
-}; 
+};
 
+const updateCategory = async (req: Request, res: Response) => {
+    try {
+        const { catId } = req.params;
 
+        if (!catId) {
+            throw new Error("Category Id is required");
+        }
 
+        const result = await categoryService.updateCategoryInService(catId as string, req.body.name);
+
+        sendResponse(res, {
+            statusCode: 200,
+            success: true,
+            message: "Category Data updated successfully.",
+            data: result
+        });
+    }
+    catch (error) {
+        sendResponse(res, {
+            statusCode: 400,
+            success: false,
+            message: "Category update unsuccessful.",
+        });
+    }
+};
+
+const deleteCategory = async (req: Request, res: Response) => {
+    try {
+        const { catId } = req.params;
+
+        if (!catId) {
+            throw new Error("Category Id is required");
+        }
+
+        const result = await categoryService.deleteCategoryInService(catId as string);
+
+        sendResponse(res, {
+            statusCode: 200,
+            success: true,
+            message: "CCategory deleted successfully.",
+            data: result
+        });
+
+    }
+    catch (error) {
+        sendResponse(res, {
+            statusCode: 400,
+            success: false,
+            message: "Category deletion failed.",
+        });
+    }
+};
 
 
 export const categoryController = {
     createCategory,
     getAllCategory,
-    getCategoryById
+    getCategoryById,
+    updateCategory,
+    deleteCategory
 
 }
