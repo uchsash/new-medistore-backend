@@ -6,7 +6,7 @@ import { categoryRouter } from "../modules/Category/category.router";
 const router = Router();
 
 const routerManager = [
-        {
+    {
         path: "/auth",
         route: AuthRouter,
     },
