@@ -9,7 +9,7 @@ const createCategoryInService = async (name: string) => {
     });
 
     return result;
-}
+};
 
 const getAllCategoryInService = async (sortBy: string, sortOrder: string) => {
     const result = await prisma.category.findMany({
@@ -26,9 +26,32 @@ const getAllCategoryInService = async (sortBy: string, sortOrder: string) => {
     });
 
     return result;
-}
+};
+
+const getCategoryByIdInService = async (catId: string, sortBy: string, sortOrder: string) => {
+    const result = await prisma.category.findUniqueOrThrow({
+        where: {
+            id: catId
+        },
+        include: {
+            medicines: {
+                orderBy: {
+                    [sortBy]: sortOrder
+                }
+            },
+            _count: {
+                select: {
+                    medicines: true
+                }
+            }
+        }
+    });
+
+    return result;
+};
 
 export const categoryService = {
     createCategoryInService,
-    getAllCategoryInService
+    getAllCategoryInService,
+    getCategoryByIdInService
 }

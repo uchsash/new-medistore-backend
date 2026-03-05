@@ -21,7 +21,7 @@ const createCategory = async (req: Request, res: Response) => {
             message: "Category creation failed",
         });
     }
-}
+};
 
 const getAllCategory = async (req: Request, res: Response) => {
     try {
@@ -38,8 +38,8 @@ const getAllCategory = async (req: Request, res: Response) => {
             message: "Categories fetched successfully.",
             data: result
         });
-    } catch (error) {
-
+    }
+    catch (error) {
         sendResponse(res, {
             statusCode: 400,
             success: false,
@@ -48,12 +48,45 @@ const getAllCategory = async (req: Request, res: Response) => {
     }
 };
 
+const getCategoryById = async (req: Request, res: Response) => {
+    try {
+        const { catId } = req.params;
+        const { sortBy, sortOrder } = paginationAndSortingHelper(req.query);
+
+        const allowedSortFields = ['name', 'createdAt'];
+        const finalSortBy = allowedSortFields.includes(sortBy as string) ? sortBy : "createdAt";
+
+        if (!catId) {
+            throw new Error("Category Id is required");
+        }
+
+        const result = await categoryService.getCategoryByIdInService(catId as string, finalSortBy, sortOrder);
+
+        sendResponse(res, {
+            statusCode: 200,
+            success: true,
+            message: "Category fetched successfully.",
+            data: result
+        });
+
+    }
+    catch (error) {
+
+        sendResponse(res, {
+            statusCode: 400,
+            success: false,
+            message: "Categories fetched unsuccessful.",
+        });
+    }
+}; 
+
 
 
 
 
 export const categoryController = {
     createCategory,
-    getAllCategory
+    getAllCategory,
+    getCategoryById
 
 }
