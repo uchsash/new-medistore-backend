@@ -68,7 +68,6 @@ const getAllMedicine = async (req: Request, res: Response) => {
 
 const getMyMedicine = async (req: Request, res: Response) => {
     try {
-
         const currentSellerId = req.user?.id;
 
         if (!currentSellerId) {
@@ -103,7 +102,7 @@ const getMyMedicine = async (req: Request, res: Response) => {
             message: "Medicine retrival failed.",
         });
     }
-}
+};
 
 const getMedicineById = async (req: Request, res: Response) => {
     try {
@@ -128,9 +127,61 @@ const getMedicineById = async (req: Request, res: Response) => {
             message: "Medicine retrive by Id failed.",
         });
     }
-}
+};
 
+const updateMedicine = async (req: Request, res: Response) => {
+    try {
+        const { medId } = req.params;
+        const currentSellerId = req.user?.id;
+        const currentSellerRole = req.user?.role;
 
+        if (!currentSellerId || !currentSellerRole) {
+            throw new Error("You must be logged in to update medicine.");
+        }
+
+        const result = await medicineService.updateMedicineInService(medId as string, currentSellerId, currentSellerRole, req.body);
+
+        sendResponse(res, {
+            statusCode: 200,
+            success: true,
+            message: "Medicine updated successfully.",
+            data: result
+        });
+    } catch (error) {
+        sendResponse(res, {
+            statusCode: 400,
+            success: false,
+            message: "Medicine update failed.",
+        });
+    }
+};
+
+const deleteMedicine = async (req: Request, res: Response) => {
+    try {
+        const { medId } = req.params;
+        const currentSellerId = req.user?.id;
+        const currentSellerRole = req.user?.role;
+
+        if (!currentSellerId || !currentSellerRole) {
+            throw new Error("You must be logged in to delete medicine.");
+        }
+
+        const result = await medicineService.deleteMedicineInService(medId as string, currentSellerId, currentSellerRole);
+
+        sendResponse(res, {
+            statusCode: 200,
+            success: true,
+            message: "Medicine deleted successfully.",
+            data: result
+        });
+    } catch (error: any) {
+        sendResponse(res, {
+            statusCode: 400,
+            success: false,
+            message: "Medicine deletion failed.",
+        });
+    }
+};
 
 
 export const medicineController = {
@@ -138,4 +189,6 @@ export const medicineController = {
     getAllMedicine,
     getMyMedicine,
     getMedicineById,
+    updateMedicine,
+    deleteMedicine
 }
