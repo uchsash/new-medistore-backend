@@ -118,7 +118,7 @@ const deleteCategory = async (req: Request, res: Response) => {
         sendResponse(res, {
             statusCode: 200,
             success: true,
-            message: "CCategory deleted successfully.",
+            message: "Category deleted successfully.",
             data: result
         });
 
