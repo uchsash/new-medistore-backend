@@ -52,9 +52,31 @@ const getAllReviewsInService = async () => {
     });
 };
 
+const updateReviewStatusInService = async (reviewId: string, newStatus: "PUBLISHED" | "UNPUBLISHED") => {
+    const existingReview = await prisma.review.findUniqueOrThrow({
+        where: {
+            id: reviewId
+        }
+    });
+
+    if (existingReview.status === newStatus) {
+        throw new Error(`Review status is already ${newStatus}.`);
+    }
+
+    return await prisma.review.update({
+        where: {
+            id: reviewId
+        },
+        data: {
+            status: newStatus
+        }
+    });
+};
+
 
 
 export const reviewServices = {
     createReviewInService,
     getAllReviewsInService,
+    updateReviewStatusInService
 }

@@ -17,5 +17,11 @@ router.post(
     reviewController.createReview
 );
 
+router.patch(
+    "/:reviewId",
+    auth(UserRole.admin),
+    reviewController.updateReviewStatus
+);
+
 
 export const reviewRouter: Router = router;

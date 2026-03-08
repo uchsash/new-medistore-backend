@@ -46,9 +46,32 @@ const getAllReviews = async (req: Request, res: Response) => {
   }
 };
 
+const updateReviewStatus = async (req: Request, res: Response) => {
+    try {
+        const { reviewId } = req.params;
+        const { newStatus } = req.body;
+
+        const result = await reviewServices.updateReviewStatusInService(reviewId as string, newStatus);
+        sendResponse(res, {
+            statusCode: 200,
+            success: true,
+            message: "Review updated successfully.",
+            data: result
+        });
+    } catch (error) {
+        sendResponse(res, {
+            statusCode: 400,
+            success: false,
+            message: "Review update failed.",
+            data: error
+        });
+    }
+};
+
 
 export const reviewController = {
     createReview,
-    getAllReviews
+    getAllReviews,
+    updateReviewStatus,
 
 }
