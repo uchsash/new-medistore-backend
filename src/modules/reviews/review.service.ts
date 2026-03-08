@@ -73,10 +73,17 @@ const updateReviewStatusInService = async (reviewId: string, newStatus: "PUBLISH
     });
 };
 
-
+const deleteReviewInService = async (reviewId: string) => {
+    return await prisma.review.delete({
+        where: {
+            id: reviewId
+        }
+    });
+};
 
 export const reviewServices = {
     createReviewInService,
     getAllReviewsInService,
-    updateReviewStatusInService
+    updateReviewStatusInService,
+    deleteReviewInService
 }

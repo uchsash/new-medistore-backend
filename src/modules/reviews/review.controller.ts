@@ -28,22 +28,22 @@ const createReview = async (req: Request, res: Response) => {
 };
 
 const getAllReviews = async (req: Request, res: Response) => {
-  try {
-    const result = await reviewServices.getAllReviewsInService();
-    sendResponse(res, {
+    try {
+        const result = await reviewServices.getAllReviewsInService();
+        sendResponse(res, {
             statusCode: 200,
             success: true,
             message: "Reviews retrieved successfully.",
             data: result
         });
-  } catch (error) {
-    sendResponse(res, {
+    } catch (error) {
+        sendResponse(res, {
             statusCode: 400,
             success: false,
             message: "Review retrieval failed.",
             data: error
         });
-  }
+    }
 };
 
 const updateReviewStatus = async (req: Request, res: Response) => {
@@ -69,9 +69,33 @@ const updateReviewStatus = async (req: Request, res: Response) => {
 };
 
 
+const deleteReview = async (req: Request, res: Response) => {
+    try {
+        const { reviewId } = req.params;
+
+        const result = await reviewServices.deleteReviewInService(reviewId as string);
+        sendResponse(res, {
+            statusCode: 200,
+            success: true,
+            message: "Review deleted successfully.",
+            data: result
+        });
+    }
+    catch (error) {
+        sendResponse(res, {
+            statusCode: 400,
+            success: false,
+            message: "Review deletion failed.",
+            data: error
+        });
+    }
+}
+
+
 export const reviewController = {
     createReview,
     getAllReviews,
     updateReviewStatus,
+    deleteReview
 
 }
