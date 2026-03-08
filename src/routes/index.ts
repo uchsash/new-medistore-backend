@@ -2,6 +2,8 @@ import { Router } from "express";
 import { AuthRouter } from "../modules/Auth/auth.router";
 import { medicineRouter } from "../modules/Medicine/medicine.route";
 import { categoryRouter } from "../modules/Category/category.router";
+import { orderRouter } from "../modules/orders/order.router";
+import { reviewRouter } from "../modules/reviews/review.router";
 
 const router = Router();
 
@@ -18,18 +20,18 @@ const routerManager = [
         path: "/categories",
         route: categoryRouter,
     },
-    // {
-    //     path: "/orders",
-    //     route: orderRouter,
-    // },
+    {
+        path: "/orders",
+        route: orderRouter,
+    },
     // {
     //     path: "/users",
     //     route: userRouter,
     // },
-    // {
-    //     path: "/reviews",
-    //     route: reviewRouter,
-    // },
+    {
+        path: "/reviews",
+        route: reviewRouter,
+    },
 ];
 
 routerManager.forEach((r) => router.use(r.path, r.route));

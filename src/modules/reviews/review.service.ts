@@ -1,0 +1,60 @@
+import { prisma } from "../../lib/prisma";
+
+
+const createReviewInService = async (userId: string, payload: { medicineId: string, rating: number, comment: string }) => {
+
+    const deliveredOrder = await prisma.order.findFirst({
+        where: {
+            customerId: userId,
+            status: 'DELIVERED',
+            items: {
+                some: {
+                    medicineId: payload.medicineId
+                }
+            }
+        }
+    });
+
+    if (!deliveredOrder) {
+        throw new Error("You can only review medicines that you have purchased.");
+    }
+
+    return await prisma.review.create({
+        data: {
+            userId,
+            medicineId: payload.medicineId,
+            rating: payload.rating,
+            comment: payload.comment
+        }
+    });
+};
+
+const getAllReviewsInService = async () => {
+    return await prisma.review.findMany({
+        orderBy: {
+            createdAt: "desc"
+        },
+        include: {
+            user: {
+                select: {
+                    id: true,
+                    name: true,
+                    email: true
+                }
+            },
+            medicine: {
+                select: {
+                    id: true,
+                    name: true
+                }
+            },
+        },
+    });
+};
+
+
+
+export const reviewServices = {
+    createReviewInService,
+    getAllReviewsInService,
+}

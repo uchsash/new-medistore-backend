@@ -26,6 +26,7 @@ const createMedicine = async (req: Request, res: Response) => {
             statusCode: 400,
             success: false,
             message: "Medicine creation failed.",
+            data: error
         });
     }
 };
@@ -57,11 +58,12 @@ const getAllMedicine = async (req: Request, res: Response) => {
             data: result
         });
     }
-    catch (err) {
+    catch (error) {
         sendResponse(res, {
             statusCode: 400,
             success: false,
             message: "Medicine retrival failed.",
+            data: error
         });
     }
 };
@@ -95,11 +97,12 @@ const getMyMedicine = async (req: Request, res: Response) => {
             data: result
         });
     }
-    catch (err) {
+    catch (error) {
         sendResponse(res, {
             statusCode: 400,
             success: false,
             message: "Medicine retrival failed.",
+            data: error
         });
     }
 };
@@ -120,11 +123,12 @@ const getMedicineById = async (req: Request, res: Response) => {
             data: result
         });
     }
-    catch (err) {
+    catch (error) {
         sendResponse(res, {
             statusCode: 400,
             success: false,
             message: "Medicine retrive by Id failed.",
+            data: error
         });
     }
 };
@@ -152,6 +156,7 @@ const updateMedicine = async (req: Request, res: Response) => {
             statusCode: 400,
             success: false,
             message: "Medicine update failed.",
+            data: error
         });
     }
 };
@@ -174,11 +179,12 @@ const deleteMedicine = async (req: Request, res: Response) => {
             message: "Medicine deleted successfully.",
             data: result
         });
-    } catch (error: any) {
+    } catch (error) {
         sendResponse(res, {
             statusCode: 400,
             success: false,
             message: "Medicine deletion failed.",
+            data: error
         });
     }
 };

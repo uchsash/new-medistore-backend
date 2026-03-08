@@ -19,6 +19,7 @@ const createCategory = async (req: Request, res: Response) => {
             statusCode: 400,
             success: false,
             message: "Category creation failed",
+            data: error
         });
     }
 };
@@ -44,6 +45,7 @@ const getAllCategory = async (req: Request, res: Response) => {
             statusCode: 400,
             success: false,
             message: "Categories fetched unsuccessful.",
+            data: error
         });
     }
 };
@@ -75,6 +77,7 @@ const getCategoryById = async (req: Request, res: Response) => {
             statusCode: 400,
             success: false,
             message: "Categories fetched unsuccessful.",
+            data: error
         });
     }
 };
@@ -101,6 +104,7 @@ const updateCategory = async (req: Request, res: Response) => {
             statusCode: 400,
             success: false,
             message: "Category update unsuccessful.",
+            data: error
         });
     }
 };
@@ -128,6 +132,7 @@ const deleteCategory = async (req: Request, res: Response) => {
             statusCode: 400,
             success: false,
             message: "Category deletion failed.",
+            data: error
         });
     }
 };

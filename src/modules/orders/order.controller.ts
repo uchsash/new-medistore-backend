@@ -18,11 +18,12 @@ const createOrder = async (req: Request, res: Response) => {
             message: "Order placed successfully.",
             data: result
         });
-    } catch (error: any) {
+    } catch (error) {
         sendResponse(res, {
             statusCode: 400,
             success: false,
             message: "Could not place order.",
+            data: error
         });
     }
 };
@@ -42,11 +43,12 @@ const getMyOrders = async (req: Request, res: Response) => {
             message: "Order history retrieved successfully.",
             data: result
         });
-    } catch (error: any) {
+    } catch (error) {
         sendResponse(res, {
             statusCode: 400,
             success: false,
             message: "Order retrive failed.",
+            data: error
         });
     }
 };
@@ -69,11 +71,12 @@ const getOrderById = async (req: Request, res: Response) => {
             message: "Order details retrieved successfully.",
             data: result
         });
-    } catch (error: any) {
+    } catch (error) {
         sendResponse(res, {
             statusCode: 400,
             success: false,
             message: "Order details retrieve failed.",
+            data: error
         });
     }
 };
@@ -91,11 +94,12 @@ const getSellerOrders = async (req: Request, res: Response) => {
             message: "Seller orders retrieved successfully.",
             data: result
         });
-    } catch (error: any) {
+    } catch (error) {
         sendResponse(res, {
             statusCode: 400,
             success: false,
             message: "Failed to fetch Seller's orders.",
+            data: error
         });
     }
 };
@@ -122,11 +126,12 @@ const updateOrderStatus = async (req: Request, res: Response) => {
             message: `Order status updated to ${status} successfully.`,
             data: result
         });
-    } catch (error: any) {
+    } catch (error) {
         sendResponse(res, {
             statusCode: 400,
             success: false,
             message: "Order status update failed.",
+            data: error
         });
     }
 };
@@ -146,11 +151,12 @@ const getAllOrdersForAdmin = async (req: Request, res: Response) => {
             message: "All the orders retrieved successfully.",
             data: result
         });
-    } catch (error: any) {
+    } catch (error) {
         sendResponse(res, {
             statusCode: 400,
             success: false,
             message: "Failed to fetch all the orders.",
+            data: error
         });
     }
 };

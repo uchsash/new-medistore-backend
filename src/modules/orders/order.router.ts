@@ -24,7 +24,7 @@ router.get(
 
 
 router.get(
-    "/admin/orders",
+    "/admin/all-orders",
     auth(UserRole.admin),
     orderController.getAllOrdersForAdmin
 );
